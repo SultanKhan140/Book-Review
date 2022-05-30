@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h4 style="margin: 2vh;">Hello,Welcom To Book Info!!!</h4>
+
+{% for items in book_list %}
+<div class="card mb-3 ms-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1607103555-51wmv-2LokL.jpg" class="img-fluid rounded-start" alt="..." style="height: 30vh; width: 25vh;">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <span class="card-text"><h5>{{ items.book.title }}</h5></span>
+        <span class="card-text text-muted">Publisher : {{ items.book.publisher }}</span>
+        <br/>
+        <span class="card-text text-muted">Publication Date : <small class="text-muted">{{ items.book.publication_date }}</small></span>
+        <br />
+        <span class="text-primary">No of Reviews: </span><span><strong class="text-primary"> {{ items.number_of_reviews }} </strong></span> 
+        <span class="text-primary"> Rating :<strong> {{ items.book_rating }} </strong><span class="fa fa-star" style="color: yellow;"></span><br />
+        {% if not items.book_rating %}
+            <span style="color: black;">Write the first Review :) </span>
+            {% endif %}
+                <br />
+                <a class="btn btn-outline-primary" style="margin-top: 0.5rem;" role="button" href="{% url 'book_detail' items.book.pk %}">Reviews</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

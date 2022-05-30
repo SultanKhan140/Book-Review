@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<p class="text-info ms-3 mt-1">{% trans "Thanks for visting the website, Hope to see you soon" %}</p>
+<p class="ms-3"><a href="{% url 'accounts:login' %}">{%trans 'Login Again' %}</a></p>
+{% endblock %}

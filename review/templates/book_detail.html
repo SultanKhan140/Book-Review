@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br>
+    <h3 style="margin: 2vh;">Book Details: </h3>
+    <a class="btn btn-primary ms-3 my-3" href="{% url 'review_create' book.pk %}">Add a Review</a>
+    <a class="btn btn-primary ms-3 my-3" href="{% url 'book_media' book.pk%}">Add a Media</a>
+    <br />
+    {% if book.cover %}
+        <img src="{{ book.cover.url }}" class="ms-3">
+        <br/>
+    {% endif %}
+    <br/>
+    <span class="text-info ms-3">Title:</span> <span>{{ book.title }}</span>
+    <br/>
+    <span class="text-info ms-3">Publisher: </span><span>{{ book.publisher }}</span>
+    <br/>
+    <span class="text-info ms-3">Publication Date: </span><span>{{ book.publication_date }}</span>
+    <br/>
+
+     {% if book.sample %}
+        <span class="text-info ms-3">Sample</span> <span><a href="{{ book.sample.url }}" target="_blank">Download Here </a></span>
+        <br/>
+    {% endif %}
+
+
+    {% if not reviews %}
+        <hr>
+        <h5 style="margin: 2vh;">Be The First One to <a class="alert-link" href="{% url 'review_create' book.pk %}">Add a Review</a> This Book. </h5>
+    {% else %}
+        <span class="text-info ms-3">Overall Rating: </span> <span class="badge badge-primary badge-pill">{{ book_rating }}</span>
+        <br/><br/>
+        <h3 style="margin: 2vh;">Review Comments </h3>
+        <ul>
+            {% for review in reviews %}
+                <li class="list-group-item">
+                    <span class="text-info">Review Comment </span> <span> {{ review.content }}</span>
+                    <br/>
+                     <span class="text-info">Created on:  </span> <span> {{ review.date_created }}</span>
+                    <br/>
+                     <span class="text-info">Modified on: </span> <span> {{ review.date_edited }}</span>
+                    <br/>
+                    <span class="text-info">Rating: </span> <span class="badge badge-primary badge-pill">{{ review.rating }}</span>
+                    <br/>
+                    <a href="{% url 'review_edit' book.pk review.pk %}">Edit Review</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+{% endblock %}
